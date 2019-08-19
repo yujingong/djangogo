@@ -1,4 +1,56 @@
 <html>
-    <p>Hi there!</p>
-    <p>It works!</p>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <div class="title-box">
+    <div align="left" style="float:left; display: inline;">
+      <img class="seoul-title-top" src="{% static 'img/7017_black.jpg' %}">
+    </div>
+    <div align="right" style="float: right display: inline;">
+      <img class="nolgong-title" src="{% static 'img/nolgong_title.png' %}">
+    </div>
+  </div>
+  <div align="center" style="margin-top: 3vh;">
+    {% if page == 1 %}
+      <div class="play-ticket tutorial-text">서울로7017 곳곳에 적혀있는 &lt;&#35;단어&gt;를 빈칸에 입력한다.</div>
+      <img class="arrow" style="visibility: hidden;" src="{% static 'img/left.png' %}">
+      <img class="tutorial-img" src="{% static 'img/tutorial1.png' %}">
+      <a href="{% url 'tutorial' %}?q=2">
+        <img class="arrow" src="{% static 'img/right.png' %}">
+      </a>
+      <div class="invisible-button"></div>
+    {% elif page == 2 %}
+      <div class="play-ticket tutorial-text">&lt;&#35;단어&gt;를 입력하면 두&#183;세가지 문장이 등장한다. 그 중 더 마음이 가는 쪽을 선택한다.</div>
+      <a href="{% url 'tutorial' %}?q=1">
+        <img class="arrow" src="{% static 'img/left.png' %}">
+      </a>
+      <img class="tutorial-img" src="{% static 'img/tutorial2.png' %}">
+      <a href="{% url 'tutorial' %}?q=3">
+        <img class="arrow" src="{% static 'img/right.png' %}">
+      </a>
+      <div class="invisible-button"></div>
+    {% else %}
+      <div class="play-ticket tutorial-text">종착:역에 도착할 때까지 &lt;&#35;단어&gt;의 입력과 문장 선택을 반복한다.</div>
+      <a href="{% url 'tutorial' %}?q=2">
+        <img class="arrow" src="{% static 'img/left.png' %}">
+      </a>
+      <img class="tutorial-img" src="{% static 'img/tutorial3.png' %}">
+      <a>
+        <img class="arrow" style="visibility: hidden;">
+      </a>
+      <a class="typo-button typo-button-a background-yellow" href="{% url 'hashtag_find' %}" style="margin-top: 5vh;">
+        출발합니다
+      </a>
+    {% endif %}
+    <div style="margin-top: 3vh;">
+      {% for n in "xxx" %}
+        {% if forloop.counter == page %}
+          <div class="dot dot-black"></div>
+        {% else %}
+          <div class="dot dot-yellow"></div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
 </html>
